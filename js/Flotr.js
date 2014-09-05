@@ -246,7 +246,20 @@ Flotr = {
   noConflict : function () {
     global.Flotr = previousFlotr;
     return this;
+  },
+  additionalHandler : {
+    callback: function(name, param) {
+        // console.log('callback executed in Flotr');
+        this[name](param);
+    }
   }
+};
+
+Flotr.additionalHandler['flotr:select'] = function(param) {
+    console.log('Flotr selection!');
+};
+Flotr.additionalHandler['flotr:zoom'] = function(param) {
+    console.log('default zoom: ' + param.xaxis.min + " to " + param.xaxis.max);
 };
 
 global.Flotr = Flotr;

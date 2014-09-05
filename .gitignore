@@ -10,3 +10,5 @@ dev
 # Node
 node_modules
 npm-debug.log
+
+.idea
