@@ -249,17 +249,23 @@ Flotr = {
   },
   additionalHandler : {
     callback: function(name, param) {
-        // console.log('callback executed in Flotr');
+        console.log('callback executed: ' + name);
         this[name](param);
     }
   }
 };
 
 Flotr.additionalHandler['flotr:select'] = function(param) {
-    console.log('Flotr selection!');
+    console.log('default select handler, do nothing!');
 };
 Flotr.additionalHandler['flotr:zoom'] = function(param) {
     console.log('default zoom: ' + param.xaxis.min + " to " + param.xaxis.max);
+};
+Flotr.additionalHandler['flotr:reset'] = function(param) {
+    console.log('default reset handler, do nothing');
+};
+Flotr.additionalHandler['flotr:click'] = function(param) {
+    console.log('default click handler, do nothing');
 };
 
 global.Flotr = Flotr;
