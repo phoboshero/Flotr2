@@ -75,6 +75,17 @@ function init() {
     });
   }
 
+  // Pan handle
+  if (options.pan) {
+    pan  = D.node('<div class="flotr-handles-handle flotr-handles-pan"></div>');
+    D.insert(container, pan);
+    D.hide(pan);
+    handles.pan = pan;
+    this.observe(pan, 'mousedown', function () {
+      handles.moveHandler = scrollMoveHandler;
+    });
+  }
+
   this.observe(document, 'mouseup', function() {
     handles.moveHandler = null;
   });
@@ -92,6 +103,7 @@ function handleSelect(selection) {
     options = this.options.handles,
     left = handles.left,
     right = handles.right,
+    pan = handles.pan,
     scroll = handles.scroll;
 
   if (options) {
@@ -108,7 +120,27 @@ function handleSelect(selection) {
         selection.x2
       );
     }
+
+    if (options.pan) {
+      positionPan(this, pan, selection.x1, selection.x2);
+    }
   }
+}
+
+function positionPan(graph, handle, x1, x2) {
+  D.show(handle);
+
+  var
+    l1 = Math.round(graph.axes.x.d2p(x1)),
+    l2 = Math.round(graph.axes.x.d2p(x2)),
+    width = l2 - l1;
+
+  D.setStyles(handle, {
+    'left' : l1+'px',
+    'top' : '5px',
+    'height'  : '65px',
+    'width'  : width+'px'
+  });
 }
 
 function positionDrag(graph, handle, x) {
@@ -151,6 +183,7 @@ function reset() {
     D.hide(handles.left);
     D.hide(handles.right);
     D.hide(handles.scroll);
+    D.hide(handles.pan);
   }
 }
 
