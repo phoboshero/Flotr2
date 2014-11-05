@@ -595,7 +595,7 @@ Graph.prototype = {
 
     D.setStyles(el, {position: 'relative'}); // For positioning labels and overlay.
     size = {};
-    size.width = el.clientWidth;
+    size.width = jQuery(el).parent().width();
     size.height = el.clientHeight;
 
     if(size.width <= 0 || size.height <= 0 || o.resolution <= 0){
